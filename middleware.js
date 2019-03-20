@@ -20,14 +20,16 @@ const logger = (req, res, next) => {
 	next();
 };
 
-const auth = (req, res, next) => {
-	const token = req.headers.authorization;
-	if (token === 'eu1') {
-		next();
-	} else {
-		res.status(401).json({ error: 'access denied' });
-	}
-};
+function auth(password) {
+	return function(req, res, next) {
+		const token = req.headers.authorization;
+		if (token === password) {
+			next();
+		} else {
+			res.status(401).json({ message: "YOU DON'T KNOW MY PASSWORD :P" });
+		}
+	};
+}
 
 module.exports = {
 	syllyMiddleware,
