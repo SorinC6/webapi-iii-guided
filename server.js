@@ -5,6 +5,7 @@ const md = require('./middleware');
 const syllyMiddleware = md.syllyMiddleware;
 const addTeam = md.addTeam;
 const logger = md.logger;
+const auth = md.auth;
 
 const hubsRouter = require('./hubs/hubs-router.js');
 
@@ -18,7 +19,7 @@ server.use(logger);
 
 server.use('/api/hubs', hubsRouter);
 
-server.get('/', (req, res, next) => {
+server.get('/', auth, (req, res, next) => {
 	res.send(`
     <h2>Lambda Hubs API</h2>
     <p>Welcome ${req.team} to the Lambda Hubs API</p>
